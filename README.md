@@ -51,34 +51,6 @@ hospital_readmission_prediction/
     └── index.html
 ```
 
-## How to Run the Project
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/hospital-readmission-prediction.git
-cd hospital-readmission-prediction
-```
-
-### 2. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Run the Flask application
-
-```bash
-python app.py
-```
-
-### 4. Open the application
-
-Open the following URL in your browser:
-
-```text
-http://127.0.0.1:5000
-```
 
 ## Workflow
 
