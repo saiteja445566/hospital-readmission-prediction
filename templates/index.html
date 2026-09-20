@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hospital Readmission Prediction</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #243447;
+        }
+
+        .description {
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 12px;
+            background-color: #243447;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1a252f;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .high-risk {
+            background-color: #ffe5e5;
+            color: #b30000;
+            border: 1px solid #ff9999;
+        }
+
+        .low-risk {
+            background-color: #e5ffe9;
+            color: #087f23;
+            border: 1px solid #8fdaa0;
+        }
+
+        .error {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #ffecec;
+            color: #b30000;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+            line-height: 1.5;
+        }
+        .reset-button {
+    margin-top: 10px;
+    background-color: #6c757d;
+}
+
+.reset-button:hover {
+    background-color: #545b62;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Hospital Readmission Prediction</h1>
+
+        <p class="description">
+            Enter patient information to estimate the risk of hospital readmission.
+        </p>
+
+        <form action="/" method="POST">
+
+            <label for="time_in_hospital">
+                Time spent in hospital (days)
+            </label>
+
+            <input
+                type="number"
+                id="time_in_hospital"
+                name="time_in_hospital"
+                min="1"
+                required
+            >
+
+            <label for="num_lab_procedures">
+                Number of laboratory procedures
+            </label>
+
+            <input
+                type="number"
+                id="num_lab_procedures"
+                name="num_lab_procedures"
+                min="0"
+                required
+            >
+
+            <label for="num_procedures">
+                Number of medical procedures
+            </label>
+
+            <input
+                type="number"
+                id="num_procedures"
+                name="num_procedures"
+                min="0"
+                required
+            >
+
+            <label for="num_medications">
+                Number of medications
+            </label>
+
+            <input
+                type="number"
+                id="num_medications"
+                name="num_medications"
+                min="0"
+                required
+            >
+
+            <label for="number_outpatient">
+                Previous outpatient visits
+            </label>
+
+            <input
+                type="number"
+                id="number_outpatient"
+                name="number_outpatient"
+                min="0"
+                required
+            >
+
+            <label for="number_emergency">
+                Previous emergency visits
+            </label>
+
+            <input
+                type="number"
+                id="number_emergency"
+                name="number_emergency"
+                min="0"
+                required
+            >
+
+            <label for="number_inpatient">
+                Previous inpatient visits
+            </label>
+
+            <input
+                type="number"
+                id="number_inpatient"
+                name="number_inpatient"
+                min="0"
+                required
+            >
+
+            <label for="number_diagnoses">
+                Number of diagnoses
+            </label>
+
+            <input
+                type="number"
+                id="number_diagnoses"
+                name="number_diagnoses"
+                min="0"
+                required
+            >
+
+           <button type="submit">
+    Predict Readmission Risk
+</button>
+
+<button type="reset" class="reset-button">
+    Clear Form
+</button>
+
+        </form>
+{% if prediction is not none %}
+    <div
+        id="predictionResult"
+        class="result
+        {% if prediction == 'High readmission risk' %}
+            high-risk
+        {% else %}
+            low-risk
+        {% endif %}"
+    >
+        <h2>{{ prediction }}</h2>
+
+        <p>
+            Estimated probability: {{ probability }}%
+        </p>
+    </div>
+{% endif %}
+
+        {% if error %}
+    <div class="error" id="errorResult">
+        <h2>Error</h2>
+        <p>{{ error }}</p>
+    </div>
+{% endif %}
+
+        <p class="disclaimer">
+            This application is an educational machine-learning project.
+            It is not intended for clinical diagnosis or medical decision-making.
+        </p>
+
+    </div>
+<script>
+    const form = document.querySelector("form");
+    const result = document.getElementById("predictionResult");
+
+    form.addEventListener("input", function () {
+        if (result) {
+            result.style.display = "none";
+        }
+    });
+
+    form.addEventListener("reset", function () {
+        if (result) {
+            result.style.display = "none";
+        }
+    });
+</script>
+</body>
+
+</html>
